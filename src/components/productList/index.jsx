@@ -5,6 +5,7 @@ import "./product-list.scss";
 
 class ProductList extends React.Component {
   render() {
+    console.log(this.props);
     const { products } = this.props;
 
     return (
