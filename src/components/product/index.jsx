@@ -1,13 +1,20 @@
 import React from "react";
 import Button from "react-bootstrap/esm/Button";
 import Card from "react-bootstrap/esm/Card";
+import { withStore } from "../../state/withStore";
+import { REMOVE_PRODUCT } from '../../state/stores/ProductsStore';
 import "./product.scss";
 
-export class Product extends React.Component {
+class Product extends React.Component {
+  onRemoveHandler = () => {
+    const { dispatch, product } = this.props;
+
+    dispatch(REMOVE_PRODUCT, { id: product.id });
+  }
+
   render() {
     const { product } = this.props;
 
-    console.log('product price unformatted', typeof product.price);
     const price = product.price.toLocaleString("ru", {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
@@ -15,15 +22,18 @@ export class Product extends React.Component {
       style: "currency",
     });
 
-    console.log('product price', price);
-
     return (
       <Card className="product">
         <Card.Header className="product-header">
           <div>
             {product.title} - {product.id}
           </div>
-          <Button variant="link">Удалить</Button>
+          <Button
+            variant="link"
+            onClick={this.onRemoveHandler}
+          >
+            Удалить
+          </Button>
         </Card.Header>
         <Card.Body className="product-body">
           <div className="product-info">
@@ -44,3 +54,5 @@ export class Product extends React.Component {
     );
   }
 }
+
+export default withStore("products", (data) => data)(Product);

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/esm/Button';
 import { withStore } from "../../../state/withStore";
 import { setImageThumb, generateProductId } from './helpers.js';
 import placeholder from './placeholder.jpg';
-import { ADD_PRODUCT } from '../../../state/stores/ProductsStore'
+import { ADD_PRODUCT } from '../../../state/stores/ProductsStore';
 import './add-product.scss';
 
 class AddProductModal extends React.Component {
@@ -25,7 +25,7 @@ class AddProductModal extends React.Component {
 
     const { onHide, products, dispatch } = this.props;
 
-    const newId = generateProductId([...products]);
+    const newId = products.length ? generateProductId([...products]) : 1;
 
     dispatch(ADD_PRODUCT, {
       product: {
