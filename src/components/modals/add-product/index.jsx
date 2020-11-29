@@ -20,22 +20,25 @@ class AddProductModal extends React.Component {
   onSubmitHandler = (event) => {
     event.preventDefault();
 
-    const elements = Array.from(event.target.elements)
-      .filter((elem) => elem.type !== 'submit' && elem.type !== 'file');
-
     const { onHide, products, dispatch } = this.props;
 
     const newId = products.length ? generateProductId([...products]) : 1;
 
-    dispatch(ADD_PRODUCT, {
+    const payload = {
       product: {
         id: newId,
-        title: elements[0].value,
-        description: elements[1].value,
-        price: elements[2].value - 0, // convert string to number
         image: this.state.imageThumb,
       }
-    });
+    }
+
+    const elements = Array.from(event.target.elements)
+      .filter((elem) => elem.type !== 'submit' && elem.type !== 'file');
+
+    for(const element of elements) {
+      payload.product[element.name] = element.value;
+    }
+
+    dispatch(ADD_PRODUCT, payload);
 
     this.setState({
       imageThumb: placeholder
@@ -77,6 +80,7 @@ class AddProductModal extends React.Component {
               <Form.Label>Название</Form.Label>
               <Form.Control
                 type="text"
+                name="title"
                 placeholder="Введите название товара"
                 required
               />
@@ -86,6 +90,7 @@ class AddProductModal extends React.Component {
               <Form.Label>Описание</Form.Label>
               <Form.Control
                 as="textarea"
+                name="description"
                 rows={3}
                 required
               />
@@ -95,6 +100,7 @@ class AddProductModal extends React.Component {
               <Form.Label>Цена</Form.Label>
               <Form.Control
                 type="number"
+                name="price"
                 placeholder="0 ₽"
                 required
               />
@@ -103,7 +109,6 @@ class AddProductModal extends React.Component {
             <Form.Group>
               <Form.File
                 label="Фото"
-
                 onChange={this.fileOnChangeHandler}
                 required
               />
