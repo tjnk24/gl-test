@@ -31,8 +31,6 @@ class Header extends React.Component {
   render() {
     const { auth } = this.props;
 
-    console.log('header', auth);
-
     return (
       <header className="app-header">
         <h1>Frontend Test Task</h1>
