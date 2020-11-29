@@ -41,7 +41,7 @@ class AddProductModal extends React.Component {
       imageThumb: placeholder
     })
 
-    onHide(false);
+    onHide();
   };
 
   fileOnChangeHandler = (event) => {

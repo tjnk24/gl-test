@@ -24,4 +24,12 @@ export const state = {
       },
     ],
   },
+  auth: {
+    auth: {
+      isAuthenticated: false,
+      login: 'Filipp',
+      email: 'filipp@ismyname.bg',
+      password: 'success123',
+    }
+  }
 };

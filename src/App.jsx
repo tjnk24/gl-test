@@ -1,41 +1,49 @@
+import './state/stores/RootStore';
 import React from "react";
 import Header from './components/header';
 import Button from 'react-bootstrap/esm/Button';
-import "./state/stores/ProductsStore";
-import './index.scss';
-
 import ProductList from "./components/productList";
 import AddProductModal from "./components/modals/add-product";
+import LoginModal from './components/modals/login';
+import './index.scss';
+
 
 export class App extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      isAddItemOpened: false,
+      addProductOpened: false,
+      loginModalOpened: false,
     }
   }
 
-  openAddItemModal = () => {
-    this.setState({ isAddItemOpened: true })
+  productModalHandler = () => {
+    this.setState({ addProductOpened: !this.state.addProductOpened })
   }
 
-  closeAddItemModal = () => {
-    this.setState({ isAddItemOpened: false })
+  loginModalHandler = () => {
+    this.setState({ loginModalOpened: !this.state.loginModalOpened })
   }
 
   render() {
-    const { isAddItemOpened } = this.state;
+    const { addProductOpened, loginModalOpened } = this.state;
 
     return (
       <>
         <AddProductModal
-          show={isAddItemOpened}
-          onHide={this.closeAddItemModal}
+          show={addProductOpened}
+          onHide={this.productModalHandler}
+        />
+        <LoginModal
+          show={loginModalOpened}
+          onHide={this.loginModalHandler}
         />
         <main className="main-container">
-          <Header />
-          <Button onClick={this.openAddItemModal}>Добавить товар</Button>
+          <Header
+            modalHandler={this.loginModalHandler}
+          />
+          <Button onClick={this.productModalHandler}>Добавить товар</Button>
           <ProductList />
         </main>
       </>

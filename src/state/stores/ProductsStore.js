@@ -1,5 +1,4 @@
 import { Store } from "../common/store/store";
-import { Registry } from "../common/store/registry";
 
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const REMOVE_PRODUCT = "REMOVE_PRODUCT";
@@ -46,7 +45,5 @@ const ProductsStore = new Store("products", {
     },
   ],
 });
-
-Registry.addStore(ProductsStore);
 
 export { ProductsStore };

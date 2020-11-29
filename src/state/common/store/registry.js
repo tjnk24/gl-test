@@ -7,12 +7,14 @@ class Registry {
     this.dispatch = this.dispatch.bind(this);
   }
 
-  addStore(store) {
-    if (!store instanceof Store) {
-      throw new Error("Given value is not a store instance!");
+  addStore(stores) {
+    for (const store of stores) {
+      if (!store instanceof Store) {
+        throw new Error("Given value is not a store instance!");
+      }
+      this.stores[store.name] = store;
     }
 
-    this.stores[store.name] = store;
   }
 
   getStore(storeName) {

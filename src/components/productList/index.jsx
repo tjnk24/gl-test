@@ -9,9 +9,10 @@ class ProductList extends React.Component {
 
     return (
       <div className="product-list">
-        {products.map((product) => (
+        {products
+          ? products.map((product) => (
           <Product key={product.id} product={product} />
-        ))}
+          )) : null }
       </div>
     );
   }
